@@ -2,6 +2,7 @@ import os
 import sqlite3
 from flask import Flask, request, session, g, redirect, url_for, abort, \
     render_template, flash
+import markdown
 
 app = Flask(__name__)
 app.config.from_object(__name__)
@@ -69,7 +70,7 @@ def cards():
         return redirect(url_for('login'))
     db = get_db()
     query = '''
-        SELECT id, type, front, back, known
+        SELECT id, type, front, back, raw_back, known
         FROM cards
         ORDER BY id DESC
     '''
@@ -97,7 +98,7 @@ def filter_cards(filter_name):
         return redirect(url_for('cards'))
 
     db = get_db()
-    fullquery = "SELECT id, type, front, back, known FROM cards " + query + " ORDER BY id DESC"
+    fullquery = "SELECT id, type, front, back, raw_back, known FROM cards " + query + " ORDER BY id DESC"
     cur = db.execute(fullquery)
     cards = cur.fetchall()
     return render_template('cards.html', cards=cards, filter_name=filter_name)
@@ -108,9 +109,10 @@ def add_card():
     if not session.get('logged_in'):
         return redirect(url_for('login'))
     db = get_db()
-    db.execute('INSERT INTO cards (type, front, back) VALUES (?, ?, ?)',
+    db.execute('INSERT INTO cards (type, front, back, raw_back) VALUES (?, ?, ?, ?)',
                [request.form['type'],
                 request.form['front'],
+                markdown.markdown(request.form['back']),
                 request.form['back']
                 ])
     db.commit()
@@ -124,7 +126,7 @@ def edit(card_id):
         return redirect(url_for('login'))
     db = get_db()
     query = '''
-        SELECT id, type, front, back, known
+        SELECT id, type, front, back, raw_back, known
         FROM cards
         WHERE id = ?
     '''
@@ -146,12 +148,14 @@ def edit_card():
           type = ?,
           front = ?,
           back = ?,
+          raw_back = ?,
           known = ?
         WHERE id = ?
     '''
     db.execute(command,
                [request.form['type'],
                 request.form['front'],
+                markdown.markdown(request.form['back']),
                 request.form['back'],
                 known,
                 request.form['card_id']
@@ -215,7 +219,7 @@ def get_card(type):
 
     query = '''
       SELECT
-        id, type, front, back, known
+        id, type, front, back, raw_back, known
       FROM cards
       WHERE
         type = ?
@@ -233,7 +237,7 @@ def get_card_by_id(card_id):
 
     query = '''
       SELECT
-        id, type, front, back, known
+        id, type, front, back, raw_back, known
       FROM cards
       WHERE
         id = ?

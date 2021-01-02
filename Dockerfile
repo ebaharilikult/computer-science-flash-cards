@@ -4,7 +4,7 @@ MAINTAINER Tinpee <tinpee.dev@gmail.com>
 ADD . /src
 WORKDIR /src
 RUN pip install --upgrade pip \
-    && pip install flask gunicorn
+    && pip install flask gunicorn markdown
 
 COPY entrypoint.sh /
 RUN sed -i 's/\r$//' /entrypoint.sh
