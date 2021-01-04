@@ -1,47 +1,49 @@
 .toggleSelected {
-    background-color: #62b06b;
-    color: #ffffff;
+  background-color: #62b06b;
+  color: #ffffff;
 }
 
 textarea {
-    font-family: monospace;
+  font-family: monospace;
 }
 
 .cardContent h4 {
-    margin-top: 0;
+  margin-top: 0;
 }
 
 .cardContent img {
-  display:block; width:100%; height:auto;
+  display: block;
+  width: 100%;
+  height: auto;
 }
 
 .alignContainer {
-    display: table;
-    width: 100%;
+  display: table;
+  width: 100%;
 }
 
 .alignMiddle {
-    height: 20em;
-    display: table-cell;
-    vertical-align: middle;
+  height: 20em;
+  display: table-cell;
+  vertical-align: middle;
 }
 
 .cardBack {
-    display: none;
+  display: none;
 }
 
 .largerText {
-    font-size: 2em;
+  font-size: 2em;
 }
-
 
 /* disables collapsing header menu */
 
 .navbar-collapse.collapse {
-  display: block!important;
+  display: block !important;
 }
 
-.navbar-nav>li, .navbar-nav {
+.navbar-nav > li,
+.navbar-nav {
   float: left !important;
 }
 
@@ -50,5 +52,5 @@ textarea {
 }
 
 .navbar-right {
-  float: right!important;
+  float: right !important;
 }
