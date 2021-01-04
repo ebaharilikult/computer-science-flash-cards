@@ -7,6 +7,10 @@ textarea {
   font-family: monospace;
 }
 
+.cardContent {
+  word-break: break-all;
+}
+
 .cardContent h4 {
   margin-top: 0;
 }
