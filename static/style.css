@@ -11,7 +11,8 @@ textarea {
   margin-top: 0;
 }
 
-.cardContent img {
+.cardContent img,
+.cardBack img {
   display: block;
   width: 100%;
   height: auto;
